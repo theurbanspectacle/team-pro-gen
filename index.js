@@ -1,7 +1,10 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const { getMainPage } = require('./src/template');
+
 
 const handleError = (error) => {
     console.error('Error encountered', error);
@@ -93,7 +96,14 @@ const basePrompt = [
  * @param {(Intern|Engineer)[]} staff - array of staff for final HTML
  */
 const createHtml = (manager, staff) => {
-    console.log(manager, staff);
+    const finalHtml = getMainPage(manager, staff);
+    const distFolder = './dist';
+    if (!fs.existsSync(distFolder)) {
+        fs.mkdirSync(distFolder);
+    }
+
+    fs.copyFileSync('./src/template.css', `${distFolder}/style.css`);
+    fs.writeFileSync(`${distFolder}/index.html`, finalHtml);
 };
 
 
