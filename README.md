@@ -23,7 +23,7 @@ This project uses Node to generate a README.
 
 ## Tests
 
-manual testing
+To run unit tests run the command `npm run test`.
 
 ## View screen recording
 
